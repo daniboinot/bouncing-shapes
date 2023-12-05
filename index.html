@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bouncing Squares</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+      canvas {
+        border: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="600" height="400"></canvas>
+
+    <script>
+      const canvas = document.getElementById("myCanvas");
+      const ctx = canvas.getContext("2d");
+
+      let blueSquareX = 50; // Initial X position of blue square
+      let blueSquareY = canvas.height / 2 - 25; // Initial Y position of blue square
+      let blueSquareSpeed = 2; // Speed of blue square
+
+      let greenSquareX = canvas.width / 2 - 25; // Initial X position of green square
+      let greenSquareY = 50; // Initial Y position of green square
+      let greenSquareSpeed = 2; // Speed of green square
+
+      let orangeSquareX = canvas.width - 100; // Initial X position of orange square
+      let orangeSquareY = canvas.height - 100; // Initial Y position of orange square
+      let orangeSquareSpeedX = 2; // Speed of orange square in X direction
+      let orangeSquareSpeedY = 2; // Speed of orange square in Y direction
+
+      function drawBlueSquare() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+
+        ctx.fillStyle = "blue";
+        ctx.fillRect(blueSquareX, blueSquareY, 50, 50);
+
+        blueSquareX += blueSquareSpeed;
+
+        // Reverse direction if hitting canvas boundary
+        if (blueSquareX <= 0 || blueSquareX >= canvas.width - 50) {
+          blueSquareSpeed = -blueSquareSpeed;
+        }
+      }
+
+      function drawGreenSquare() {
+        ctx.fillStyle = "green";
+        ctx.fillRect(greenSquareX, greenSquareY, 50, 50);
+
+        greenSquareY += greenSquareSpeed;
+
+        // Reverse direction if hitting canvas boundary
+        if (greenSquareY <= 0 || greenSquareY >= canvas.height - 50) {
+          greenSquareSpeed = -greenSquareSpeed;
+        }
+      }
+
+      function drawOrangeSquare() {
+        ctx.fillStyle = "orange";
+        ctx.fillRect(orangeSquareX, orangeSquareY, 50, 50);
+
+        orangeSquareX += orangeSquareSpeedX;
+        orangeSquareY += orangeSquareSpeedY;
+
+        // Reverse direction if hitting canvas boundary
+        if (orangeSquareX <= 0 || orangeSquareX >= canvas.width - 50) {
+          orangeSquareSpeedX = -orangeSquareSpeedX;
+        }
+        if (orangeSquareY <= 0 || orangeSquareY >= canvas.height - 50) {
+          orangeSquareSpeedY = -orangeSquareSpeedY;
+        }
+      }
+
+      function animate() {
+        drawBlueSquare();
+        drawGreenSquare();
+        drawOrangeSquare();
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    </script>
+  </body>
+</html>
